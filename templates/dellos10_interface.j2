@@ -90,6 +90,30 @@ interface {{ interface_key }}
  no mtu
     {% endif %}
   {% endif %}
+
+  {%if intf_vars.spanning_tree_port is defined %}
+     {% if intf_vars.spanning_tree_port == "edge" %}
+ spanning-tree port type edge
+     {% endif %}
+  {% else %}
+ no spanning-tree port type edge
+  {% endif %}
+
+  {%if intf_vars.spanning_tree_bpdu is defined %}
+     {% if intf_vars.spanning_tree_bpdu %}
+ spanning-tree bpduguard {{ intf_vars.spanning_tree_bpdu }}
+     {% endif %}
+  {% else %}
+ no spanning-tree bpduguard
+  {% endif %}
+
+  {%if intf_vars.spanning_tree_guard is defined %}
+     {% if intf_vars.spanning_tree_guard %}
+ spanning-tree guard {{ intf_vars.spanning_tree_guard }}
+     {% endif %}
+  {% else %}
+ no spanning-tree guard
+  {% endif %}
  
   {% if intf_vars.ip_type_dynamic is defined %}
     {% if intf_vars.ip_type_dynamic %} 
