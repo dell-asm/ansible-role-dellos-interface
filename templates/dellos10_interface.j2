@@ -91,28 +91,36 @@ interface {{ interface_key }}
     {% endif %}
   {% endif %}
 
-  {%if intf_vars.spanning_tree_port is defined %}
+  {% if intf_vars.switchport is defined %}
+    {%if intf_vars.spanning_tree_port is defined  %}
      {% if intf_vars.spanning_tree_port == "edge" %}
  spanning-tree port type edge
      {% endif %}
-  {% else %}
+    {% else %}
  no spanning-tree port type edge
+   {% endif %}
   {% endif %}
 
-  {%if intf_vars.spanning_tree_bpdu is defined %}
-     {% if intf_vars.spanning_tree_bpdu %}
- spanning-tree bpduguard {{ intf_vars.spanning_tree_bpdu }}
-     {% endif %}
-  {% else %}
- no spanning-tree bpduguard
+
+  {% if intf_vars.switchport is defined %}
+   {%if intf_vars.spanning_tree_bpdu is defined %}
+      {% if intf_vars.spanning_tree_bpdu %}
+  spanning-tree bpduguard {{ intf_vars.spanning_tree_bpdu }}
+      {% endif %}
+   {% else %}
+  no spanning-tree bpduguard
+   {% endif %}
   {% endif %}
 
-  {%if intf_vars.spanning_tree_guard is defined %}
-     {% if intf_vars.spanning_tree_guard %}
- spanning-tree guard {{ intf_vars.spanning_tree_guard }}
-     {% endif %}
-  {% else %}
- no spanning-tree guard
+
+  {% if intf_vars.switchport is defined %}
+   {%if intf_vars.spanning_tree_guard is defined %}
+      {% if intf_vars.spanning_tree_guard %}
+  spanning-tree guard {{ intf_vars.spanning_tree_guard }}
+      {% endif %}
+   {% else %}
+  no spanning-tree guard
+   {% endif %}
   {% endif %}
  
   {% if intf_vars.ip_type_dynamic is defined %}
