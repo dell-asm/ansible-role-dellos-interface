@@ -123,6 +123,14 @@ interface {{ interface_key }}
    {% endif %}
   {% endif %}
  
+  {% if intf_vars.speed is defined %}
+   {% if intf_vars.speed %}
+ speed {{ intf_vars.speed }}
+     {% else %}
+ no speed
+   {% endif %}
+  {% endif %}
+	
   {% if intf_vars.ip_type_dynamic is defined %}
     {% if intf_vars.ip_type_dynamic %} 
  ip address dhcp
